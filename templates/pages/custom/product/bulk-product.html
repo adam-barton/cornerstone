@@ -1,0 +1,90 @@
+---
+product:
+    videos:
+        limit: {{theme_settings.productpage_videos_count}}
+    reviews:
+        limit: {{theme_settings.productpage_reviews_count}}
+    related_products:
+        limit: {{theme_settings.productpage_related_products_count}}
+    similar_by_views:
+        limit: {{theme_settings.productpage_similar_by_views_count}}
+---
+{{#partial "page"}}
+    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+
+    {{#each product.shipping_messages}}
+        {{> components/common/alert-info message}}
+    {{/each}}
+
+    <div itemscope itemtype="http://schema.org/Product">
+        {{> components/products/product-view-bulk schema=true  }}
+
+        {{#if product.videos.list.length}}
+            {{> components/products/videos product.videos}}
+        {{/if}}
+
+        {{#all settings.show_product_reviews (if theme_settings.show_product_reviews_tabs '!==' true)}}
+            {{> components/products/reviews reviews=product.reviews product=product urls=urls}}
+        {{/all}}
+        <div class="bulk-banner"><h2>Bulk Order Form</h2></div>
+        <div id="bulk-product">
+            <div class="bulk-banner"><h2>Bulk Order Form</h2></div>
+        </div>
+        <div class="yotpo-bulk-product">
+                                    <div class="yotpo bottomLine"
+  data-product-id="{{ product.id }}">
+</div>
+<div data-nxt-rec=" 2f6bdf71ea2a85451e3e17e25408f7 55-1"></div> 
+<div class='yotpo QABottomLine'
+     data-appkey='YqerHyjTkof95gPxhHuqngzLNWch5XNWnGChDSWu'
+     data-product-id='{{ product.id }}'></div>
+
+     <div class="yotpo yotpo-main-widget" 
+data-product-id="{{ product.id }}"
+data-price="{{ product.price.without_tax.value }}"
+data-currency="{{ currency_selector.active_currency_code }}" 
+data-name="{{ product.title }}" 
+data-url="{{ product.url }}" 
+data-image-url="{{getImage product.main_image}}" 
+data-description="{{ product.description }}"> 
+</div>
+</div>
+        {{!-- {{> components/products/tabs}} --}}
+    </div>
+{{/partial}}
+{{> layout/base}}
+
+{{inject "productIds" (pluck product.related_products "id")}}
+{{inject "productNames" (pluck product.related_products "name")}}
+{{inject "productSKUs" (pluck product.related_products "sku")}}
+{{inject "productImages" (pluck product.related_products "image")}}
+{{inject "productPrices" (pluck product.related_products "price")}}
+{{inject "productCustom" (pluck product.related_products "custom_fields")}}
+{{inject "noCustom" (pluck product.related_products "custom_fields")}}
+{{inject "stockLevel" (pluck product.related_products "stock_level")}}
+{{inject "productURL" (pluck product.related_products "url")}}
+
+<script>
+const pageContext = JSON.parse({{jsContext}});
+console.log(pageContext);
+let productData = [];
+pageContext['productIds'].forEach((id, index) => {
+    let imageURL = '';
+    pageContext['productImages'][index] === null ? 
+    imageURL = '' : 
+    imageURL = pageContext['productImages'][index].data.replace('{:size}', '100x100');
+    productData.push({
+    id: id,
+    name: pageContext['productNames'][index],
+    image: imageURL,
+    price: pageContext['productPrices'][index].without_tax.formatted,
+    custom: pageContext['productCustom'][index][1].value,
+    no: pageContext['noCustom'][index][0].value,
+    sku: pageContext['productSKUs'][index],
+    stock: pageContext['stockLevel'][index],
+    url: pageContext['productURL'][index],
+    quantity: 0
+    })
+});
+window.initBulkProduct(productData)
+</script>

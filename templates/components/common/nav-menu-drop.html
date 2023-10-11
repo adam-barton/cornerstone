@@ -1,0 +1,23 @@
+<div class=" flex-nav">
+    <nav class="navPages">
+        <div class="dropbtn">products</div>
+
+        <ul id="caret-nav"
+            class="dropdown-redesign navPages-list{{#if theme_settings.navigation_design '!==' 'simple'}} navPages-list-depth-max{{/if}}">
+            {{#each categories}}
+            <li class="navPages-item">
+                {{#if ../theme_settings.navigation_design '===' 'simple'}}
+                {{> components/common/navigation-list}}
+                {{/if}}
+                {{#if ../theme_settings.navigation_design '===' 'alternate'}}
+                {{> components/common/navigation-list-alternate}}
+                {{/if}}
+            </li>
+            {{/each}}
+            <hr class="nav-divider">
+        </ul>
+    </nav>
+</div>
+
+
+

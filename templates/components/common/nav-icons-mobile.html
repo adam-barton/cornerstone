@@ -1,0 +1,97 @@
+<nav class="navUser mobile-only">
+       
+    <ul class="navUser-section navUser-section--alt">
+
+          {{> components/common/currency-selector}}
+
+{{!--------------------- Account -----------------------}}
+<li class="navUser-item account">
+            <!---<li class="navUser-item navUser-item--account">--->
+            {{#if customer}}
+                <a class="navUser-action" href="{{urls.account.index}}">{{lang 'common.account'}}</a>
+                <!--<a class="navUser-action" href="{{urls.auth.logout}}">{{lang 'common.logout'}}</a>-->
+                <!--Bolt Button Begin-->
+                <a class="bolt-sso-custom navUser-action" data-logged-in="true">{{lang 'common.logout'}}</a>
+                <!--Bolt Button End-->
+           {{else}}
+                <!--<a class="navUser-action" href="{{urls.auth.login}}">{{lang 'common.login'}} <img src="{{cdn 'img/account.png'}}" alt="Sign In"/></a>-->
+                {{!----{{#if settings.account_creation_enabled}}
+                    <!--<span class="navUser-or">{{lang 'common.or'}}</span> <a class="navUser-action" href="{{urls.auth.create_account}}">{{lang 'common.sign_up'}}</a>-->
+                    <span class="navUser-or">{{lang 'common.or'}}</span> <a class="bolt-sso-custom navUser-action" data-logged-in="false">{{lang 'common.sign_up'}}</a>
+                {{/if}}  ------}}
+                <!--Bolt Button Begin-->
+                <a class="bolt-sso-custom navUser-action" data-logged-in="false"> <img class="icon account-icon" src="{{cdn 'img/icon-account.svg'}}" alt="Sign In" width="34" height="34"/></a>
+                <!--Bolt Button End-->
+            {{/if}}
+        </li>
+{{!--------------------- Account -----------------------}}       
+      {{!---  <li class="navUser-item account">
+
+            <a class="navUser-action navUser-item" href="/account.php"> My Account <img src="{{cdn 'img/account.png'}}" alt="Sign In"/></a>
+        </li>-----}}
+        {{#if settings.gift_certificates_enabled}}
+            <li class="navUser-item gift">
+                <a class="navUser-action" href="{{urls.gift_certificate.purchase}}"> <img class="icon" src="{{cdn 'img/icon-giftcerts.svg'}}" alt="Gift Certificate" width="34" height="34"/></a>
+            </li>
+        {{/if}} 
+        <li class="navUser-item navUser-item--cart">
+                <a
+                    class="navUser-action"
+                    data-cart-preview
+                    data-dropdown="cart-preview-dropdown"
+                    data-options="align:right"
+                    href="{{urls.cart}}">
+                     <img class="icon" src="{{cdn 'img/icon-cart.svg'}}" alt="My Cart" width="34" height="34"/></span>
+                </a>
+    
+    
+                <!-- <div class="dropdown-menu" id="cart-preview-dropdown" data-dropdown-content aria-hidden="true"></div> -->
+            </li>
+    
+       
+
+       {{!--  <li class="navUser-item navUser-item--cart">
+            <a
+                class="navUser-action"
+                data-cart-preview
+                data-dropdown="cart-preview-dropdown"
+                data-options="align:right"
+                href="{{urls.cart}}">
+                <span class="navUser-item-cartLabel">{{lang 'common.cart'}}</span> <span class="countPill{{#if cart.items}} countPill--positive{{/if}} cart-quantity">{{cart.quantity}}</span>
+            </a>
+
+            <div class="dropdown-menu" id="cart-preview-dropdown" data-dropdown-content aria-hidden="true"></div>
+        </li> --}}
+            {{!-- <li class="navUser-item navUser-item--divider"></li> --}}
+       {{!--  {{/if}} --}}
+    </ul>
+
+</nav>
+<!-- Bolt SSO script -->
+<script>
+        var insertAccountScript = function () {
+            var scriptTag = document.getElementById('bolt-account');
+            if (scriptTag) {
+                return;
+            }
+            scriptTag = document.createElement('script');
+            scriptTag.setAttribute('type', 'text/javascript');
+            scriptTag.setAttribute('async', '');
+            scriptTag.setAttribute('src', 'https://connect.bolt.com/account.js');
+            scriptTag.setAttribute('id', 'bolt-account');
+            scriptTag.setAttribute('data-publishable-key', 'mDyusdpc4ZnQ.uj2-laOGcQ0Y.c737a9c60f10d270593e63a70f2f0742c5d2b440d4e3f04a7ed5b4567c0b7e25');
+            document.head.appendChild(scriptTag);
+        }
+      
+        function insertButtons() {
+            if (typeof BoltAccount === 'undefined') {
+                window.setTimeout(insertButtons, 100);
+                return;
+            }
+            BoltAccount.injectButtons();
+        }
+
+        insertAccountScript();
+        insertButtons();
+</script>
+<!-- End Bolt SSO script -->

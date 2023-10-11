@@ -1,0 +1,200 @@
+<!--Bolt Script Begin-->
+<script
+  id="bolt-connect"
+  type="text/javascript"
+  src="https://connect.bolt.com/connect-bigcommerce.js"
+  data-publishable-key="mDyusdpc4ZnQ.uj2-laOGcQ0Y.c737a9c60f10d270593e63a70f2f0742c5d2b440d4e3f04a7ed5b4567c0b7e25"
+  data-shopping-cart-id="BigCommerce"
+  data-storefront-api-token="{{settings.storefront_api.token}}"
+  route-public-token="974441dc-1581-41c1-b1df-83950f430d64">
+</script>
+<!--Bolt Script End-->
+<style>
+    .bolt-button-wrapper{
+        border-radius: 3px;
+        height:100px;
+        margin-bottom: 10px;
+        overflow:hidden;
+        position:relative;
+        width: 100%;
+        }
+    .bolt-button-wrapper > object,
+        .bolt-button-wrapper > div{
+            left: 50%;
+            position:absolute;
+            top: 55%;
+            transform: translate(-50%, -50%);
+            }
+</style>
+
+
+<div class="modal-header">
+    <h2 class="modal-header-title">
+        {{lang 'cart.added_to_cart.what_next' num_products=cart.quantity}}
+    </h2>
+</div>
+
+<div class="modal-body">
+    <div class="previewCart">
+        <section class="previewCartCheckout">
+ 
+           <!-- <script>
+                fetch(url, {
+                    method: 'get',
+                }).then(function (response) {
+                    if (response.status === 200) {
+                        console.log("Fetch is OK!");
+                        return response.json();
+                    }
+                }).catch((error) => {
+                    console.log(`Error during fetch ${error}`);
+                }).then(function (data) {
+                    if (data[0].lineItems.customItems[0].name.includes("Extend")) {
+                        console.log("Warranty exist in Cart");
+                        console.log(data[0].lineItems.customItems[0].name);
+                        setTimeout(hideCartPreview(), 1000);
+                    } else {
+                        console.log('Warranty does not exist in Cart');
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                });
+            </script>-->
+            
+            
+            {{#if cart.show_primary_checkout_button}}
+                <!--<a href="{{urls.checkout.single_address}}" class="button button--primary">-->
+                <!--    {{lang 'cart.added_to_cart.proceed_to_checkout'}}-->
+                <!--</a>-->
+                <!--Bolt Button Begin-->
+                <div class="bolt-button-wrapper">
+                    <div data-tid="instant-bolt-checkout-button">
+                        <object data="https://connect.bolt.com/v1/checkout_button?publishable_key=mDyusdpc4ZnQ.uj2-laOGcQ0Y.c737a9c60f10d270593e63a70f2f0742c5d2b440d4e3f04a7ed5b4567c0b7e25">
+                            </object>
+                    </div>
+                </div>
+                <!--Bolt Button End-->
+            {{/if}}
+
+            <div class="previewCartCheckout-additionalCheckoutButtons">
+                {{#each cart.additional_checkout_buttons}}
+                    {{{this}}}
+                {{/each}}
+            </div>
+
+            {{#if cart.show_multiple_address_shipping}}
+                <div class="previewCartAction-checkoutMultiple">
+                    <a href="{{urls.checkout.multiple_address}}">
+                        {{lang 'cart.preview.checkout_multiple'}}
+                    </a>
+                </div>
+            {{/if}}
+
+            <div class="previewCartCheckout-subtotal">
+                {{lang 'cart.added_to_cart.order_subtotal'}}
+
+                <strong class="previewCartCheckout-price">
+                    {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                        {{cart.sub_total.formatted}}
+                    {{else}}
+                        {{> components/common/login-for-pricing}}
+                    {{/or}}
+                </strong>
+            </div>
+
+            <p data-cart-quantity="{{cart.quantity}}">
+                {{lang 'cart.added_to_cart.your_cart_contains' num_products=cart.quantity}}
+            </p>
+
+            <a href="#" class="button button--primary" role="button" data-reveal-close>
+                {{lang 'cart.added_to_cart.continue_shopping'}}
+            </a>
+
+            <a href="{{urls.cart}}" class="button">
+                {{lang 'cart.added_to_cart.view_or_edit_cart'}}
+            </a>
+        </section>
+        <section class="productView">
+            {{#with cart.added_item}}
+                <figure class="productView-image">
+                    <div class="productView-img-container">
+                        <img class="productView-image--cart lazyload"
+                            data-sizes="auto"
+                            src="{{cdn 'img/loading.svg'}}"
+                            data-src="{{getImage image 'product_size' (cdn ../theme_settings.default_image_product)}}"
+                            alt="{{image.alt}}"
+                            title="{{image.alt}}" />
+                    </div>
+                </figure>
+
+                <div class="productView-details">
+                    <h4 class="productView-title">
+                        {{name}}
+                    </h4>
+
+                    <div class="productView-brand">
+                        {{brand.name}}
+                    </div>
+
+                    <div class="productView-price">
+                        {{#or ../customer (if ../theme_settings.restrict_to_login '!==' true)}}
+                            {{quantity}} &times; {{price.formatted}}
+                        {{else}}
+                            {{> components/common/login-for-pricing}}
+                        {{/or}}
+                    </div>
+
+                    {{#each configurable_fields}}
+                        <dl class="productView-info">
+                            <dt class="productView-info-name">
+                                {{name}}
+                            </dt>
+                            {{#if is_file}}
+                                <a href="/viewfile.php?prodfield={{../id}}&cartitem={{../../id}}">{{{value}}}</a>
+                            {{else}}
+                                {{{value}}}
+                            {{/if}}
+                        </dl>
+                    {{/each}}
+
+                    {{#each options}}
+                        <dl class="productView-info">
+                            <dt class="productView-info-name">
+                                {{name}}
+                            </dt>
+                            <dd class="productView-info-value">
+                                {{value}}
+                            </dd>
+                        </dl>
+                    {{/each}}
+                </div>
+            {{/with}}
+        </section>
+    </div>
+
+    {{#if cart.suggested_products}}
+        <section class="suggestiveCart">
+            <h4>
+                {{lang 'cart.added_to_cart.you_might_also_like'}}&hellip;
+            </h4>
+
+            <ul class="productGrid">
+                {{#each cart.suggested_products}}
+                    <li class="product">
+                        {{> components/products/card settings=../settings hide_product_quick_view=true theme_settings=../theme_settings}}
+                    </li>
+                {{/each}}
+            </ul>
+        </section>
+    {{/if}}
+</div>
+
+<!--Bolt Script start-->
+<script>
+    if (window.BoltCheckout && window.BoltCheckout.reloadBigCommerceCart) {
+        window.BoltCheckout.reloadBigCommerceCart();
+    } else {
+        console.log("window.BoltCheckout.reloadBigCommerceCart is not defined");
+    }
+</script>
+<!--Bolt Script End-->

@@ -1,0 +1,159 @@
+<!--Bolt Script Begin-->
+<script
+  id="bolt-connect"
+  type="text/javascript"
+  src="https://connect.bolt.com/connect-bigcommerce.js"
+  data-publishable-key="mDyusdpc4ZnQ.uj2-laOGcQ0Y.c737a9c60f10d270593e63a70f2f0742c5d2b440d4e3f04a7ed5b4567c0b7e25"
+  data-shopping-cart-id="BigCommerce"
+  data-storefront-api-token="{{settings.storefront_api.token}}"
+  route-public-token="974441dc-1581-41c1-b1df-83950f430d64">
+</script>
+<!--Bolt Script End-->
+<script>
+    if (window.BoltCheckout && window.BoltCheckout.reloadBigCommerceCart) {
+        window.BoltCheckout.reloadBigCommerceCart();
+    } else {
+        console.log("window.BoltCheckout.reloadBigCommerceCart is not defined");
+    }
+</script>
+<style>
+    .bolt-button-wrapper{
+        border-radius: 3px;
+        height:100px;
+        margin-bottom: 10px;
+        overflow:hidden;
+        position:relative;
+        width: 210%!important;
+        }
+    .bolt-button-wrapper > object,
+        .bolt-button-wrapper > div{
+            left: 50%;
+            position:absolute;
+            top: 55%;
+            transform: translate(-50%, -50%);
+            }
+</style>
+
+<div class="previewCart">
+    {{#if cart.items.length}}
+        <ul class="previewCartList">
+            {{#each (limit cart.items 4)}}
+                <li class="previewCartItem">
+                    <div class="previewCartItem-image">
+                        {{#if type '==' 'GiftCertificate'}}
+                            <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{cdn ../../theme_settings.default_image_gift_certificate}}" alt="GiftCertificate" title="GiftCertificate">
+
+                        <!-- Extend - Add Extend Logo for Warranties -->
+                        {{else if type '==' 'Custom'}}
+                            <img
+                            class="cart-item-fixed-image"
+                            data-sizes="auto"
+                            src="{{cdn 'img/extend_logo.png'}}"
+                            data-src="{{cdn ../theme_settings.default_image_extend}}"
+                            alt="Extend Protection Plan"
+                            title="Extend Protection Plan"
+                            />
+                        <!-- Extend - End Extend Code -->
+
+                        {{else}}
+                            <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage image 'productthumb_size' (cdn ../../theme_settings.default_image_product)}}" alt="{{image.alt}}" title="{{image.alt}}">
+                        {{/if}}
+                    </div>
+
+                    <div class="previewCartItem-content">
+                        <span class="previewCartItem-brand">
+                            {{brand.name}}
+                        </span>
+
+                        <!-- Extend - Remove links for warranties -->
+                        {{#if type '==' 'Custom'}}
+                            <h6 class="previewCartItem-name">
+                                <a alt="{{name}}">{{name}}</a>
+                            </h6>
+                        {{else}}
+                            <h6 class="previewCartItem-name">
+                                <a href="{{url}}" alt="{{name}}">{{name}}</a>
+                            </h6>
+                        {{/if}}
+                        <!-- Extend - End Extend Code -->
+
+                        <!-- Extend - Render item info -->
+                        {{#if type '==' 'Custom'}}
+                            <div id="extend-plan-item" data-extend-itemid={{id}}></div>
+                        {{/if}}
+                        <!-- Extend - End Extend Code -->
+
+                        <!-- Extend - Add Ajax Cart Offer -->
+                        <div
+                            id="extend-cart-offer"
+                            data-extend-item-id="{{id}}"
+                            data-extend-sku="{{sku}}"
+                            data-extend-quantity="{{quantity}}"
+                        ></div>
+                        <!-- Extend - End Extend Code -->
+
+                        <span class="previewCartItem-price">
+                            {{#if quantity '>' 1}}
+                                {{quantity}} &times;
+                            {{/if}}
+                            {{#or ../customer (if ../theme_settings.restrict_to_login '!==' true)}}
+                                {{price.formatted}}
+                            {{else}}
+                                {{> components/common/login-for-pricing}}
+                            {{/or}}
+                        </span>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+        
+        <div class="previewCartAction">
+            {{#if cart.show_primary_checkout_button}}
+            
+
+            
+                <div class="previewCartAction-checkout">
+                    <!--<a href="{{urls.checkout.single_address}}" class="button button--small button--primary">-->
+                    <!--    {{lang 'cart.preview.checkout_now'}}-->
+                    <!--</a>-->
+                    <!--Bolt Button Begin-->
+                    <div class="bolt-button-wrapper">
+                        <div data-tid="instant-bolt-checkout-button">
+                            <object data="https://connect.bolt.com/v1/checkout_button?publishable_key=mDyusdpc4ZnQ.uj2-laOGcQ0Y.c737a9c60f10d270593e63a70f2f0742c5d2b440d4e3f04a7ed5b4567c0b7e25">
+                                </object>
+                        </div>
+                    </div>
+                    <!--Bolt Button End-->
+                </div>
+            {{/if}}
+
+            <div class="previewCartAction-viewCart{{#unless cart.show_primary_checkout_button}} previewCartAction-viewCart--sole{{/unless}}">
+                <a href="{{urls.cart}}" class="button button--small button--action">
+                    {{lang 'cart.preview.view_cart'}}
+                </a>
+            </div>
+
+            {{#if cart.show_multiple_address_shipping}}
+                <div class="previewCartAction-checkoutMultiple">
+                    <a href="{{urls.checkout.multiple_address}}">
+                        {{lang 'cart.preview.checkout_multiple'}}
+                    </a>
+                </div>
+            {{/if}}
+        </div>
+    {{else}}
+        <div class="previewCart-emptyBody">
+            {{lang 'cart.checkout.empty_cart'}}
+        </div>
+    {{/if}}
+</div>
+
+<style>
+.previewCartAction-checkout {
+    display: none;
+}
+.previewCartAction .button {
+    width: 210%;
+    text-align: center;
+}
+</style>

@@ -1,0 +1,13 @@
+<div class="shopbycatwrap no-background">
+    <div class="shopcatheading">
+        <h2 class="">trending products</h2>
+    </div>
+
+<ul class="productGrid productGrid--maxCol{{ columns }}" data-product-type="top_sellers"  {{#if settings.data_tag_enabled}} data-list-name="Most Popular Products" {{/if}}>
+{{#each products}}
+<li class="product">
+    {{>components/products/card settings=../settings theme_settings=../theme_settings customer=../customer event="list" position=(add @index 1)}}
+</li>
+{{/each}}
+</ul>
+</div>

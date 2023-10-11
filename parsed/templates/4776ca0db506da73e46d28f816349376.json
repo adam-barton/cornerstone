@@ -1,0 +1,1 @@
+{"components/common/banner2":"<div class=\"banner-wrap2\">\n\t<!--<img src=\"{{cdn 'img/lookbookbg.jpg'}}\" alt=\"\"> -->\n\t<div class=\"content-wrap\">\n\t\t<h1>Join Our Loyalty Program Today</h1>\n\t\t<h4>Create an Account at Checkout to Start Saving Today</h4>\n\t\t<a class=\"button button--primary clear\" href=\"#\">Shop Now</a>\n\t</div>\n</div>\n"}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="101.148" height="101.148" viewBox="0 0 101.148 101.148">
+  <defs>
+    <filter id="Union_1" x="0" y="0" width="101.148" height="101.148" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <rect width="18.84" height="5.21" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Chatbot" transform="translate(-1243.5 -728.425)">
+    <g transform="matrix(1, 0, 0, 1, 1243.5, 728.43)" filter="url(#Union_1)">
+      <path id="Union_1-2" data-name="Union 1" d="M0,39.074a39.075,39.075,0,0,1,78.045-2.865h.1V77.627h0v.113H44.738A39.107,39.107,0,0,1,0,39.074Z" transform="translate(11.5 8.5)" fill="#d1322c" stroke="#f8f8f8" stroke-width="5"/>
+    </g>
+    <path id="Union_2" data-name="Union 2" d="M0,21.621a21.622,21.622,0,0,1,43.185-1.586h.057V42.954h0v.063H24.755A21.639,21.639,0,0,1,0,21.621Z" transform="translate(1272.595 754.378)" fill="#f8f8f8"/>
+    <g id="Repeat_Grid_2" data-name="Repeat Grid 2" transform="translate(1285.972 774.697)" clip-path="url(#clip-path)">
+      <g transform="translate(-1680 -819)">
+        <circle id="Ellipse_3" data-name="Ellipse 3" cx="2" cy="2" r="2" transform="translate(1680 819)" fill="#d1322c"/>
+      </g>
+      <g transform="translate(-1673 -819)">
+        <circle id="Ellipse_3-2" data-name="Ellipse 3" cx="2" cy="2" r="2" transform="translate(1680 819)" fill="#d1322c"/>
+      </g>
+      <g transform="translate(-1666 -819)">
+        <circle id="Ellipse_3-3" data-name="Ellipse 3" cx="2" cy="2" r="2" transform="translate(1680 819)" fill="#d1322c"/>
+      </g>
+    </g>
+  </g>
+</svg>

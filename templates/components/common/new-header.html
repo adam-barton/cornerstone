@@ -1,0 +1,102 @@
+{{!----{{#if banners.top}}
+<div class="banners" data-banner-location="top">
+    {{#each (limit banners.top_metadata 1)}}
+    <div class="banner" data-event-type="promotion" data-entity-id="{{this.id}}" data-name="{{this.banner-name}}"
+        data-position="{{this.location}}" data-banner-id="{{this.banner-name}}">
+        <div data-event-type="promotion-click">
+            {{{this.content}}}
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}} ----}}
+
+<div class="top-header">
+    <div class="top-header-wrap">
+        <div class="item1">Customer Service Hours: MONDAY-FRIDAY, 8AM-5PM CT</div>
+
+            <div class="item2 help-center-button">
+                {{> components/common/help-center}}
+            </div>
+            
+    </div>
+</div>
+
+<header class="header" role="banner">
+    
+<div class="dropdown-menu" id="cart-preview-dropdown" data-dropdown-content aria-hidden="true"></div>
+
+    <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="menu" name="Menu Toggle">
+        <span class="mobileMenu-toggleIcon"></span>
+    </a>
+    <div class="flex-container header-flex header-main">
+        {{#if page_type '===' 'default'}}
+        <div class="header-logo header-logo--{{theme_settings.logo-position}}">
+            {{> components/common/store-logo}}
+        </div>
+        {{else}}
+        <div class="header-logo header-logo--{{theme_settings.logo-position}}">
+            {{> components/common/store-logo}}
+        </div>
+        {{/if}}
+        {{{region name="next_to_logo"}}}
+
+        <div>
+            <div class="search-wrap">{{> components/common/search-box}}</div>
+        </div> 
+        <div>
+            {{> components/common/navigation}}
+        </div>
+    </div>
+
+    {{{region name="header_bottom"}}}
+
+    <div class="navPages-container" id="menu" data-menu>
+        {{> components/common/nav-icons-mobile}}
+        <div class="hide-onMobile main-nav-container">
+             {{> components/common/nav-menu-drop}}
+            <div class="sub-nav mobile-sub">
+                <ul class="subNavFlex">
+                    {{#each pages}}
+                    <li class="navPages-item navPages-item-page">
+                        <a class="navPages-action" href="{{url}}">{{name}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+                <div id="mobile-help-menu">
+                    {{> components/common/help-center}}
+                </div>
+            </div>
+            
+
+
+            <div class="sub-nav desk-sub">
+                <ul class="subNavFlex">
+                    {{#each pages}}
+                    <li class="navPages-item navPages-item-page">
+                        <a class="navPages-action" href="{{url}}">{{name}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+
+            <div class="navPage-subMenu" id="navPages-160140" aria-hidden="true" tabindex="-1">
+                <ul class="navPage-subMenu-list">
+                    <li class="navPage-subMenu-item">
+                        <a class="navPages-action" href="#"></a>
+                    </li>
+                </ul>
+            </div>
+
+
+            
+        </div>
+    </div>
+    <div class="compare-container">
+        <div class="compare-btn"> <span>Select products and click</span> 
+            <a class="navUser-action navUser-item--compare" href="{{urls.compare}}" data-compare-nav>{{lang
+                'common.compare'}} <span class="countPill countPill--positive countPill--alt"></span></a>
+        </div>
+    </div>
+</header>
+

@@ -1,0 +1,37 @@
+<div class="flex-container container instagramrow">
+<div class="col6">
+    <h2><img src="{{cdn 'img/insta.png'}}"/> #BARNDOORAG</h2>
+   <!-- LightWidget WIDGET --><script src="//lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/606b66dc943d5ceba0dfd21d9d9a1243.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width: 100%; border: 0; overflow: hidden;"></iframe>
+</div>
+
+
+<div class="col6">
+    <div class="foottitle">
+    <h2>FOLLOW US ON:</h2>
+    </div>
+    <div class="footcontent">
+        <ul class="social-links clearfix">
+            <li class="social-link">
+                <a href="https://www.facebook.com/barndoorag/%C2%A0" target="blank"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li class="social-link">
+                <a href="https://twitter.com/barndoorag" target="blank"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li class="social-link">
+                <a href="http://www.pinterest.com" target="blank"><i class="fa fa-pinterest"></i></a>
+            </li>
+            <li class="social-link">
+                <a href="https://www.instagram.com/barndooragco/" target="blank"><i class="fa fa-instagram"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div id="HomeRecentBlogs">
+        {{#each blog.recent_posts}}
+        <div class="single-post">
+            <a href="{{url}}" class="post-title"><strong>{{title}}</strong></a>
+            <p>{{summary}}</p>
+        </div>
+        {{/each}}
+    </div>
+</div>
+</div>
